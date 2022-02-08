@@ -1,6 +1,7 @@
 let initButtons = (buttons) => {
     document.getElementById('start-button').remove()
-    for(i=0; i <= buttons.length; i++){
+    document.getElementById('question-container').classList.remove('w3-hide')
+    for(i=0; i < buttons.length; i++){
         let btn = document.createElement('button');
         btn.innerText = buttons[i].title;
         btn.className = 'w3-button';
