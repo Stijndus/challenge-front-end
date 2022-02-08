@@ -1,6 +1,9 @@
+var questionContainer = document.getElementById('question-container');
+
+
 let initButtons = (buttons) => {
     document.getElementById('start-button').remove()
-    document.getElementById('question-container').classList.remove('w3-hide')
+    questionContainer.classList.remove('w3-hide');
     for(i=0; i < buttons.length; i++){
         let btn = document.createElement('button');
         btn.innerText = buttons[i].title;
@@ -20,6 +23,7 @@ let calcBtnColor = (val, btn) => {
             break;
         default:
             btn.className += ' w3-grey';
+            break;
     }
 }
 
