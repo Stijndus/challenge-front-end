@@ -3,7 +3,7 @@ var questionCounter = 0;
 
 var questionContainer = document.getElementById('question-container')
 var startButton = document.getElementById('start-button');
-var buttonContainer = document.getElementById('voting-buttons')
+var buttonContainer = document.getElementById('voting-buttons');
 
 
 // This initializes the buttons and the first question
@@ -27,7 +27,7 @@ let question = (i) => {
     questionContainer.childNodes[1].innerText = subjects[i].title;
     questionContainer.childNodes[3].innerText = subjects[i].statement;
   } else {
-    questionContainer.remove()
+    questionContainer.remove();
     const myNode = document.getElementById('button-wrapper');
     while (myNode.firstChild) {
       myNode.removeChild(myNode.lastChild);
@@ -41,7 +41,7 @@ let createData = () => {
     data.push({
       party: party.name,
       value: 0
-    })
+    });
   })
 }
 
@@ -52,7 +52,7 @@ let voteButton = (v, questionCounter) => {
       if (element.position === 'pro') {
         data.forEach(value => {
           if (value.party === element.name) {
-            value.value++
+            value.value++;
             console.log(value);
           }
         });
@@ -63,7 +63,7 @@ let voteButton = (v, questionCounter) => {
       if (element.position === 'contra') {
         data.forEach(value => {
           if (value.party === element.name) {
-            value.value++
+            value.value++;
             console.log(value);
           }
         });

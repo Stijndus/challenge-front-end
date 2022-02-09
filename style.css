@@ -3,7 +3,7 @@ body {
     background-size: cover;
 }
 
-#button-wrapper {
+#voting-buttons {
     display: flex;
     justify-content: space-between;
 }

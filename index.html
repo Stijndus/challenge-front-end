@@ -19,12 +19,12 @@
             <h4 id="question-title">Test</h4>
             <p id="question-content" class="w3-">Test</p>
         </div>
-        <div id="button-wrapper" class="w3-hide">
-            <button class="w3-button w3-blue w3-round-large" id="start-button" onclick="init(buttons)">Start</button>
-            <div id="voting-buttons">
+        <div id="button-wrapper">
+            <button class="w3-button w3-blue w3-round-large" id="start-button" onclick="init()">Start</button>
+            <div id="voting-buttons" class="w3-hide">
                 <button class="w3-button w3-green w3-round-large" onclick="voteButton('pro', questionCounter)">Eens</button>
-                <button class="w3-button w3-grey w3-round-large" onclick="init('', questionCounter)">Geen van beide</button>
-                <button class="w3-button w3-red w3-round-large" onclick="init('contra', questionCounter)">Oneends</button>
+                <button class="w3-button w3-grey w3-round-large" onclick="voteButton('', questionCounter)">Geen van beide</button>
+                <button class="w3-button w3-red w3-round-large" onclick="voteButton('contra', questionCounter)">Oneens</button>
             </div>
 
         </div>
