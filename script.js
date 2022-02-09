@@ -1,5 +1,6 @@
-var data = [];
+var answers = [];
 var questionCounter = 0;
+var important = [];
 
 var questionContainer = document.getElementById('question-container')
 var startButton = document.getElementById('start-button');
@@ -21,11 +22,15 @@ let initButtons = () => {
   questionContainer.classList.remove('w3-hide');
 }
 
-//
+// Init the selectables in the end screen
 let initSelect = () => {
   console.log(subjects)
   subjects.forEach(element => {
+    selectWrapper.classList.remove('w3-hide');
+
     let container = document.createElement('div');
+    container.classList.add('select-container');
+
     let checkbox = document.createElement('input');
     checkbox.setAttribute("value", element.title);
     checkbox.setAttribute("type", "checkbox");
@@ -34,8 +39,10 @@ let initSelect = () => {
     let label = document.createElement('label');
     label.setAttribute("for", element.title);
     label.innerText = element.title;
+    
     container.appendChild(checkbox);
     container.appendChild(label);
+
     selectWrapper.appendChild(container);
   })
 }
@@ -54,7 +61,7 @@ let question = (i) => {
 // Creates the Calculation Data
 let createData = () => {
   parties.forEach((party) => {
-    data.push({
+    answers.push({
       party: party.name,
       value: 0
     });
@@ -66,7 +73,7 @@ let voteButton = (v, questionCounter) => {
   if (v === 'pro') {
     subjects[questionCounter].parties.forEach(element => {
       if (element.position === 'pro') {
-        data.forEach(value => {
+        answers.forEach(value => {
           if (value.party === element.name) {
             value.value++;
             console.log(value);
@@ -77,7 +84,7 @@ let voteButton = (v, questionCounter) => {
   } else if (v === "contra") {
     subjects[questionCounter].parties.forEach(element => {
       if (element.position === 'contra') {
-        data.forEach(value => {
+        answers.forEach(value => {
           if (value.party === element.name) {
             value.value++;
             console.log(value);
@@ -91,7 +98,6 @@ let voteButton = (v, questionCounter) => {
 }
 
 // This functions handles the end of the questions
-
 let handleFinish = () => {
   initSelect();
   questionContainer.remove();
@@ -101,8 +107,17 @@ let handleFinish = () => {
   }
 }
 
-// Calculates which party is highest (in the room)
+//
+let submit = () =>{
+  let checkboxes = document.getElementsByTagName('input');
+  for(let checkbox of checkboxes){
+    if(checkbox.checked){
+      important.push(checkbox.value);
+    }
+  }
+}
 
+// Calculates which party is highest (in the room)
 let calcParty = () => {
 
 }

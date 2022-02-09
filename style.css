@@ -12,8 +12,13 @@ body {
     display: flex;
     flex-wrap: wrap;
 }
-#select-wrapper div {
+
+.select-container {
     width: 45%;
+}
+
+.submit-button {
+    width: 100%;
 }
 
 .content {
