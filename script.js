@@ -1,48 +1,28 @@
 var data = [];
 var questionCounter = 0;
 
+var questionContainer = document.getElementById('question-container')
+var startButton = document.getElementById('start-button');
+var buttonContainer = document.getElementById('voting-buttons')
+
+
 // This initializes the buttons and the first question
-let init = (buttons) => {
+let init = () => {
   createData();
-  initButtons(buttons);
-  question(0);
+  initButtons();
+  question(questionCounter);
 }
 
 // This creates the buttons
 
-let initButtons = (buttons) => {
-  document.getElementById('start-button').remove()
-  for (i = 0; i < buttons.length; i++) {
-    let btn = document.createElement('button');
-    btn.innerText = buttons[i].title;
-    btn.className = 'w3-button w3-round-large';
-    calcBtnColor(buttons[i].title, btn);
-    document.getElementById('button-wrapper').appendChild(btn);
-  }
-  document.getElementById('question-container').classList.remove('w3-hide');
-}
-
-// This calculates the color of the buttons
-let calcBtnColor = (val, btn) => {
-  switch (val) {
-    case 'Eens':
-      btn.className += ' w3-green';
-      btn.setAttribute("onclick", "voteButton('pro', questionCounter)")
-      break;
-    case 'Oneens':
-      btn.className += ' w3-red';
-      btn.setAttribute("onclick", "voteButton('contra', questionCounter)")
-      break;
-    default:
-      btn.className += ' w3-grey';
-      btn.setAttribute("onclick", "voteButton('', questionCounter)")
-      break;
-  }
+let initButtons = () => {
+  startButton.remove();
+  buttonContainer.classList.remove('w3-hide');
+  questionContainer.classList.remove('w3-hide');
 }
 
 // This wil show the question
 let question = (i) => {
- let questionContainer = document.getElementById('question-container')
   if (i < subjects.length) {
     questionContainer.childNodes[1].innerText = subjects[i].title;
     questionContainer.childNodes[3].innerText = subjects[i].statement;
@@ -92,4 +72,10 @@ let voteButton = (v, questionCounter) => {
   } 
   this.questionCounter++
   question(this.questionCounter);
+}
+
+// Calculates which party is highest (in the room)
+
+let calcParty = () => {
+    
 }

@@ -11,9 +11,6 @@
 </head>
 
 <body>
-    <script src="data.js"></script>
-    <script src="script.js"></script>
-
     <div class="w3-container w3-display-middle w3-round-large w3-sand w3-padding-16 content">
         <div class="w3-container">
             <h1>Stemwijzer</h1>
@@ -22,10 +19,19 @@
             <h4 id="question-title">Test</h4>
             <p id="question-content" class="w3-">Test</p>
         </div>
-        <div id="button-wrapper">
+        <div id="button-wrapper" class="w3-hide">
             <button class="w3-button w3-blue w3-round-large" id="start-button" onclick="init(buttons)">Start</button>
+            <div id="voting-buttons">
+                <button class="w3-button w3-green w3-round-large" onclick="voteButton('pro', questionCounter)">Eens</button>
+                <button class="w3-button w3-grey w3-round-large" onclick="init('', questionCounter)">Geen van beide</button>
+                <button class="w3-button w3-red w3-round-large" onclick="init('contra', questionCounter)">Oneends</button>
+            </div>
+
         </div>
     </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

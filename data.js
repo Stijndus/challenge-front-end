@@ -1,11 +1,3 @@
-const buttons = [{
-    title: 'Eens',
-}, {
-    title: 'Geen van beide',
-}, {
-    title: 'Oneens',
-}]
-
 var parties = [
     {
        name: "PVV",
