@@ -62,19 +62,22 @@ let voteButton = (v, questionCounter) => {
   if (v === 'pro') {
     answers.push({
       title: subjects[questionCounter].title,
-      answer: v
+      answer: v,
+      important: false
     })
     console.log(answers)
   } else if (v === "contra") {
     answers.push({
       title: subjects[questionCounter].title,
-      answer: v
+      answer: v,
+      important: false
     })
     console.log(answers);
   } else {
     answers.push({
       title: subjects[questionCounter].title,
-      answer: null
+      answer: null,
+      important: false
     })
     console.log(answers);
   }
@@ -100,9 +103,55 @@ let submit = () => {
       important.push(checkbox.value);
     }
   }
+  setFinalAnswers();
 }
 
 // Calculates which party is highest (in the room)
-let calcParty = () => {
+let setFinalAnswers = () => {
+  let data = []
+  parties.forEach(party => {
+    data.push({
+      name: party.name,
+      value: 0
+    })
+  })
+  answers.forEach(answer => {
+    important.forEach(title => {
+      if(answer.title === title ){
+        answer.important = true;
+        console.log(answer);
+      }
+    })
+  })
+  calcParty(data);
+}
 
+let calcParty = (data) => {
+  let winningParty
+
+  answers.forEach(answer => {
+    subjects.forEach(subject => {
+      if (subject.title === answer.title) {
+      subject.parties.forEach(party =>{
+        if(answer.answer === party.position){
+          data.forEach(data => {
+            if(party.name === data.name){
+              if(answer.important){
+                data.value = data.value + 2;
+              } else {
+                data.value = data.value + 1;
+              }
+            }
+          })
+        }
+      })
+    }
+    })
+  })
+
+  data.sort((a, b) => {
+    return b.value - a.value;
+  })
+
+  console.log(data)
 }
