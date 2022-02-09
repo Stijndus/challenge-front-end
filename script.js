@@ -10,7 +10,6 @@ var selectWrapper = document.getElementById('select-wrapper');
 
 // This initializes the buttons and the first question
 let init = () => {
-  createData();
   initButtons();
   question(questionCounter);
 }
@@ -39,7 +38,7 @@ let initSelect = () => {
     let label = document.createElement('label');
     label.setAttribute("for", element.title);
     label.innerText = element.title;
-    
+
     container.appendChild(checkbox);
     container.appendChild(label);
 
@@ -54,44 +53,30 @@ let question = (i) => {
     questionContainer.childNodes[1].innerText = subjects[i].title;
     questionContainer.childNodes[3].innerText = subjects[i].statement;
   } else {
-    handleFinish(); 
+    handleFinish();
   }
-}
-
-// Creates the Calculation Data
-let createData = () => {
-  parties.forEach((party) => {
-    answers.push({
-      party: party.name,
-      value: 0
-    });
-  })
 }
 
 // This calculates the
 let voteButton = (v, questionCounter) => {
   if (v === 'pro') {
-    subjects[questionCounter].parties.forEach(element => {
-      if (element.position === 'pro') {
-        answers.forEach(value => {
-          if (value.party === element.name) {
-            value.value++;
-            console.log(value);
-          }
-        });
-      }
-    });
+    answers.push({
+      title: subjects[questionCounter].title,
+      answer: v
+    })
+    console.log(answers)
   } else if (v === "contra") {
-    subjects[questionCounter].parties.forEach(element => {
-      if (element.position === 'contra') {
-        answers.forEach(value => {
-          if (value.party === element.name) {
-            value.value++;
-            console.log(value);
-          }
-        });
-      }
-    });
+    answers.push({
+      title: subjects[questionCounter].title,
+      answer: v
+    })
+    console.log(answers);
+  } else {
+    answers.push({
+      title: subjects[questionCounter].title,
+      answer: null
+    })
+    console.log(answers);
   }
   this.questionCounter++
   question(this.questionCounter);
@@ -108,10 +93,10 @@ let handleFinish = () => {
 }
 
 //
-let submit = () =>{
+let submit = () => {
   let checkboxes = document.getElementsByTagName('input');
-  for(let checkbox of checkboxes){
-    if(checkbox.checked){
+  for (let checkbox of checkboxes) {
+    if (checkbox.checked) {
       important.push(checkbox.value);
     }
   }
