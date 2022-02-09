@@ -8,6 +8,22 @@ body {
     justify-content: space-between;
 }
 
+#select-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+#select-wrapper div {
+    width: 45%;
+}
+
 .content {
     width: 750px;
+}
+
+.footer {
+    text-align: center;
+}
+
+label {
+    padding-left: 5px;
 }

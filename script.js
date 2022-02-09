@@ -4,6 +4,7 @@ var questionCounter = 0;
 var questionContainer = document.getElementById('question-container')
 var startButton = document.getElementById('start-button');
 var buttonContainer = document.getElementById('voting-buttons');
+var selectWrapper = document.getElementById('select-wrapper');
 
 
 // This initializes the buttons and the first question
@@ -14,12 +15,31 @@ let init = () => {
 }
 
 // This creates the buttons
-
 let initButtons = () => {
   startButton.remove();
   buttonContainer.classList.remove('w3-hide');
   questionContainer.classList.remove('w3-hide');
 }
+
+//
+let initSelect = () => {
+  console.log(subjects)
+  subjects.forEach(element => {
+    let container = document.createElement('div');
+    let checkbox = document.createElement('input');
+    checkbox.setAttribute("value", element.title);
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("name", element.title);
+
+    let label = document.createElement('label');
+    label.setAttribute("for", element.title);
+    label.innerText = element.title;
+    container.appendChild(checkbox);
+    container.appendChild(label);
+    selectWrapper.appendChild(container);
+  })
+}
+
 
 // This wil show the question
 let question = (i) => {
@@ -27,11 +47,7 @@ let question = (i) => {
     questionContainer.childNodes[1].innerText = subjects[i].title;
     questionContainer.childNodes[3].innerText = subjects[i].statement;
   } else {
-    questionContainer.remove();
-    const myNode = document.getElementById('button-wrapper');
-    while (myNode.firstChild) {
-      myNode.removeChild(myNode.lastChild);
-    }
+    handleFinish(); 
   }
 }
 
@@ -69,13 +85,24 @@ let voteButton = (v, questionCounter) => {
         });
       }
     });
-  } 
+  }
   this.questionCounter++
   question(this.questionCounter);
+}
+
+// This functions handles the end of the questions
+
+let handleFinish = () => {
+  initSelect();
+  questionContainer.remove();
+  const myNode = document.getElementById('button-wrapper');
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.lastChild);
+  }
 }
 
 // Calculates which party is highest (in the room)
 
 let calcParty = () => {
-    
+
 }
