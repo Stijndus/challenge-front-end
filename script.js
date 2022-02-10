@@ -7,6 +7,11 @@ var startButton = document.getElementById('start-button');
 var buttonContainer = document.getElementById('voting-buttons');
 var selectWrapper = document.getElementById('select-wrapper');
 var counter = document.getElementById('counter');
+var accordion = document.getElementById('accordion');
+var accordionButton = document.getElementById('accordion-button');
+var pro = document.getElementById('pro');
+var contra = document.getElementById('contra');
+var none = document.getElementById('none');
 
 
 // This initializes the buttons and the first question
@@ -20,6 +25,7 @@ let initButtons = () => {
   startButton.remove();
   buttonContainer.classList.remove('w3-hide');
   questionContainer.classList.remove('w3-hide');
+  accordionButton.classList.remove('w3-hide');
 }
 
 // Init the selectables in the end screen
@@ -51,20 +57,20 @@ let initSelect = () => {
 // This wil show the question
 let question = (i) => {
   if (i < subjects.length) {
-    if(counter.classList.contains('w3-hide')) counter.classList.remove('w3-hide')
-
+    if (counter.classList.contains('w3-hide')) counter.classList.remove('w3-hide')
     counter.innerText = `${questionCounter + 1}/${subjects.length}`
-
     questionContainer.childNodes[1].innerText = subjects[i].title;
     questionContainer.childNodes[3].innerText = subjects[i].statement;
+    setPoliticalViews();
+
   } else {
     let unanswered = []
     answers.forEach((answer, index) => {
-      if(answer.answer === null){
+      if (answer.answer === null) {
         unanswered.push(`‎ ${index + 1}`)
       }
     })
-    if(unanswered.length > 0){
+    if (unanswered.length > 0) {
       alert(`Je hebt vraag${unanswered} niet ingevuld!`);
     } else {
       handleFinish()
@@ -111,13 +117,18 @@ let voteButton = (v, i) => {
 let handleFinish = () => {
   initSelect();
   questionContainer.remove();
-  counter.remove()
+  counter.remove();
+  accordionButton.remove();
+  accordion.remove();
   const myNode = document.getElementById('button-wrapper');
-  while (myNode.firstChild) {
-    myNode.removeChild(myNode.lastChild);
-  }
+  childEater(myNode);
 }
 
+let childEater = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.lastChild);
+  }
+}
 //
 let submit = () => {
   let checkboxes = document.getElementsByTagName('input');
@@ -218,4 +229,36 @@ let handleSkipClick = () => {
   }
   questionCounter++
   question(questionCounter);
+}
+
+let expand = () => {
+  if (accordion.className.indexOf("w3-show") == -1) {
+    accordion.className += " w3-show";
+  } else {
+    accordion.className = accordion.className.replace(" w3-show", "");
+  }
+}
+
+let setPoliticalViews = () => {
+  accordion.className = accordion.className.replace(" w3-show", "");
+
+  childEater(pro);
+  childEater(contra);
+  childEater(none);
+  subjects[questionCounter].parties.forEach(party => {
+    let item = document.createElement('li');
+    let itemContent = document.createElement('span');
+    itemContent.innerHTML = party.name
+    //Filter opinions.
+    if (party.position == 'pro') {
+      item.appendChild(itemContent)
+      pro.appendChild(item)
+    } else if (party.position == 'contra') {
+      item.appendChild(itemContent)
+      contra.appendChild(item)
+    } else {
+      item.appendChild(itemContent)
+      none.appendChild(item)
+    }
+  })
 }

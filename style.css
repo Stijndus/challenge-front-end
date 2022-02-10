@@ -8,9 +8,15 @@ body {
     justify-content: space-between;
 }
 
-#select-wrapper {
+.flex-wrapper {
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.thirds {
+    width: 30%;
+    height: fit-content;
 }
 
 .select-container {
@@ -27,6 +33,15 @@ body {
 
 .footer {
     text-align: center;
+}
+
+ul {
+    padding-inline-start: 0px;
+    list-style-type: none;
+}
+
+li {
+    text-decoration: none;
 }
 
 label {
