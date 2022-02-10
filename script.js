@@ -23,7 +23,6 @@ let initButtons = () => {
 
 // Init the selectables in the end screen
 let initSelect = () => {
-  console.log(subjects)
   subjects.forEach(element => {
     selectWrapper.classList.remove('w3-hide');
 
@@ -64,22 +63,19 @@ let voteButton = (v, questionCounter) => {
       title: subjects[questionCounter].title,
       answer: v,
       important: false
-    })
-    console.log(answers)
+    });
   } else if (v === "contra") {
     answers.push({
       title: subjects[questionCounter].title,
       answer: v,
       important: false
     })
-    console.log(answers);
   } else {
     answers.push({
       title: subjects[questionCounter].title,
-      answer: null,
-      important: false
+      answer: v,
+      important: false,
     })
-    console.log(answers);
   }
   this.questionCounter++
   question(this.questionCounter);
@@ -119,7 +115,6 @@ let setFinalAnswers = () => {
     important.forEach(title => {
       if(answer.title === title ){
         answer.important = true;
-        console.log(answer);
       }
     })
   })
@@ -127,8 +122,6 @@ let setFinalAnswers = () => {
 }
 
 let calcParty = (data) => {
-  let winningParty
-
   answers.forEach(answer => {
     subjects.forEach(subject => {
       if (subject.title === answer.title) {
@@ -148,10 +141,33 @@ let calcParty = (data) => {
     }
     })
   })
-
   data.sort((a, b) => {
     return b.value - a.value;
   })
 
-  console.log(data)
+  handleEnd(data);
+}
+
+let handleEnd = (data) => {
+  while (selectWrapper.firstChild) {
+    selectWrapper.removeChild(selectWrapper.lastChild);
+  }
+
+
+  let title = document.createElement('h3')
+  title.innerText = 'Resultaat'
+  title.classList.add('submit-button');
+  selectWrapper.appendChild(title);
+
+  data.forEach((element, index) => {
+    let p = document.createElement('p');
+    p.innerText = `${index + 1}. ${element.name} ${calcPercentage(element.value)}%`
+    p.classList.add('select-container')
+    selectWrapper.appendChild(p);
+  })
+}
+
+let calcPercentage = (val) => {
+  let totalPoints = subjects.length + important.length;
+  return ((100 * val) / totalPoints).toFixed(2);
 }
