@@ -2,16 +2,16 @@ var answers = [];
 var questionCounter = 0;
 var important = [];
 
-var questionContainer = document.getElementById('question-container')
-var startButton = document.getElementById('start-button');
-var buttonContainer = document.getElementById('voting-buttons');
-var selectWrapper = document.getElementById('select-wrapper');
-var counter = document.getElementById('counter');
-var accordion = document.getElementById('accordion');
-var accordionButton = document.getElementById('accordion-button');
-var pro = document.getElementById('pro');
-var contra = document.getElementById('contra');
-var none = document.getElementById('none');
+const questionContainer = document.getElementById('question-container')
+const startButton = document.getElementById('start-button');
+const buttonContainer = document.getElementById('voting-buttons');
+const selectWrapper = document.getElementById('select-wrapper');
+const counter = document.getElementById('counter');
+const accordion = document.getElementById('accordion');
+const accordionButton = document.getElementById('accordion-button');
+const pro = document.getElementById('pro');
+const contra = document.getElementById('contra');
+const none = document.getElementById('none');
 
 
 // This initializes the buttons and the first question
@@ -67,7 +67,7 @@ let question = (i) => {
     let unanswered = []
     answers.forEach((answer, index) => {
       if (answer.answer === null) {
-        unanswered.push(`‎ ${index + 1}`)
+        unanswered.push(` ${index + 1}`)
       }
     })
     if (unanswered.length > 0) {
