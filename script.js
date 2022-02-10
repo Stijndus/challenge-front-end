@@ -58,28 +58,39 @@ let question = (i) => {
 }
 
 // This calculates the
-let voteButton = (v, questionCounter) => {
-  if (v === 'pro') {
-    answers.push({
-      title: subjects[questionCounter].title,
-      answer: v,
-      important: false
-    });
-  } else if (v === "contra") {
-    answers.push({
-      title: subjects[questionCounter].title,
-      answer: v,
-      important: false
-    })
+let voteButton = (v, i) => {
+  if (!answers[i]) {
+    if (v === 'pro') {
+      answers.push({
+        title: subjects[i].title,
+        answer: v,
+        important: false
+      });
+    } else if (v === "contra") {
+      answers.push({
+        title: subjects[i].title,
+        answer: v,
+        important: false
+      })
+    } else {
+      answers.push({
+        title: subjects[i].title,
+        answer: v,
+        important: false,
+      })
+    }
   } else {
-    answers.push({
-      title: subjects[questionCounter].title,
-      answer: v,
-      important: false,
-    })
+    if (v === 'pro') {
+      answers[i].answer = v
+    } else if (v === "contra") {
+      answers[i].answer = v;
+    } else {
+      answers[i].answer = v
+    }
   }
   this.questionCounter++
   question(this.questionCounter);
+  console.log(answers);
 }
 
 // This functions handles the end of the questions
@@ -114,7 +125,7 @@ let setFinalAnswers = () => {
   })
   answers.forEach(answer => {
     important.forEach(title => {
-      if(answer.title === title ){
+      if (answer.title === title) {
         answer.important = true;
       }
     })
@@ -126,20 +137,20 @@ let calcParty = (data) => {
   answers.forEach(answer => {
     subjects.forEach(subject => {
       if (subject.title === answer.title) {
-      subject.parties.forEach(party =>{
-        if(answer.answer === party.position){
-          data.forEach(data => {
-            if(party.name === data.name){
-              if(answer.important){
-                data.value = data.value + 2;
-              } else {
-                data.value = data.value + 1;
+        subject.parties.forEach(party => {
+          if (answer.answer === party.position) {
+            data.forEach(data => {
+              if (party.name === data.name) {
+                if (answer.important) {
+                  data.value = data.value + 2;
+                } else {
+                  data.value = data.value + 1;
+                }
               }
-            }
-          })
-        }
-      })
-    }
+            })
+          }
+        })
+      }
     })
   })
   data.sort((a, b) => {
@@ -171,4 +182,14 @@ let handleEnd = (data) => {
 let calcPercentage = (val) => {
   let totalPoints = subjects.length + important.length;
   return ((100 * val) / totalPoints).toFixed(2);
+}
+
+let handleBackClick = () => {
+  if (questionCounter === 0) {
+    return location.reload();
+  }
+  console.log('test');
+  questionCounter--
+
+  question(questionCounter);
 }
