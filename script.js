@@ -33,6 +33,7 @@ let initSelect = () => {
     checkbox.setAttribute("value", element.title);
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("name", element.title);
+    checkbox.setAttribute("id", element.title);
 
     let label = document.createElement('label');
     label.setAttribute("for", element.title);

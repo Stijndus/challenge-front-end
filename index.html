@@ -10,8 +10,8 @@
   <title>Stemwijzer</title>
 
 
-  <!-- <script src="http://stemwijzer.dvc-icta.nl/data.js" defer></script> -->
-  <script src="data.js" defer></script>
+  <script src="http://stemwijzer.dvc-icta.nl/data.js" defer></script>
+  <!-- <script src="data.js" defer></script> -->
   <script src="script.js" defer></script>
 </head>
 
@@ -31,7 +31,7 @@
       <button class="w3-button w3-blue w3-round-large" type="submit" id="start-button" onclick="init()">Start</button>
       <div id="voting-buttons" class="w3-hide">
         <button class="w3-button w3-green w3-round-large" onclick="voteButton('pro', questionCounter)">Eens</button>
-        <button class="w3-button w3-grey w3-round-large" onclick="voteButton('', questionCounter)">Geen van
+        <button class="w3-button w3-grey w3-round-large" onclick="voteButton('none', questionCounter)">Geen van
           beide</button>
         <button class="w3-button w3-red w3-round-large" onclick="voteButton('contra', questionCounter)">Oneens</button>
       </div>
