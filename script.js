@@ -6,6 +6,7 @@ var questionContainer = document.getElementById('question-container')
 var startButton = document.getElementById('start-button');
 var buttonContainer = document.getElementById('voting-buttons');
 var selectWrapper = document.getElementById('select-wrapper');
+var counter = document.getElementById('counter');
 
 
 // This initializes the buttons and the first question
@@ -50,10 +51,24 @@ let initSelect = () => {
 // This wil show the question
 let question = (i) => {
   if (i < subjects.length) {
+    if(counter.classList.contains('w3-hide')) counter.classList.remove('w3-hide')
+
+    counter.innerText = `${questionCounter + 1}/${subjects.length}`
+
     questionContainer.childNodes[1].innerText = subjects[i].title;
     questionContainer.childNodes[3].innerText = subjects[i].statement;
   } else {
-    handleFinish();
+    let unanswered = []
+    answers.forEach((answer, index) => {
+      if(answer.answer === null){
+        unanswered.push(`‎ ${index + 1}`)
+      }
+    })
+    if(unanswered.length > 0){
+      alert(`Je hebt vraag${unanswered} niet ingevuld!`);
+    } else {
+      handleFinish()
+    }
   }
 }
 
@@ -90,13 +105,13 @@ let voteButton = (v, i) => {
   }
   this.questionCounter++
   question(this.questionCounter);
-  console.log(answers);
 }
 
 // This functions handles the end of the questions
 let handleFinish = () => {
   initSelect();
   questionContainer.remove();
+  counter.remove()
   const myNode = document.getElementById('button-wrapper');
   while (myNode.firstChild) {
     myNode.removeChild(myNode.lastChild);
@@ -188,8 +203,19 @@ let handleBackClick = () => {
   if (questionCounter === 0) {
     return location.reload();
   }
-  console.log('test');
-  questionCounter--
 
+  questionCounter--
+  question(questionCounter);
+}
+
+let handleSkipClick = () => {
+  if (!answers[questionCounter]) {
+    answers.push({
+      title: subjects[questionCounter].title,
+      answer: null,
+      important: false
+    });
+  }
+  questionCounter++
   question(questionCounter);
 }
